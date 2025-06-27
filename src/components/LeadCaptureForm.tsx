@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,15 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Phone, Mail, User, Home, CheckCircle } from "lucide-react";
-import { useForm, ValidationError } from "@formspree/react";
 import { motion } from 'framer-motion';
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -28,9 +24,76 @@ const zoomIn = {
 };
 
 const ContactForm = () => {
-  const [state, handleSubmit] = useForm("mnnvgqgd");
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    interest: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { toast } = useToast();
 
-  if (state.succeeded) {
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.phone || !formData.interest) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('leads')
+        .insert([
+          {
+            full_name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            interest: formData.interest,
+          }
+        ]);
+
+      if (error) {
+        console.error('Error saving lead:', error);
+        toast({
+          title: "Submission Error",
+          description: "There was an error submitting your form. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        setIsSubmitted(true);
+        toast({
+          title: "Success!",
+          description: "Your consultation request has been submitted successfully.",
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Submission Error",
+        description: "There was an error submitting your form. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSubmitted) {
     return (
       <div className="flex flex-col items-center justify-center py-12 animate-fade-in-up">
         <CheckCircle className="w-16 h-16 text-gold mb-4 animate-bounce" />
@@ -49,7 +112,8 @@ const ContactForm = () => {
         <Input
           id="name"
           type="text"
-          name="name"
+          value={formData.name}
+          onChange={(e) => handleInputChange('name', e.target.value)}
           required
           placeholder="Enter your full name"
           className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1"
@@ -63,12 +127,12 @@ const ContactForm = () => {
         <Input
           id="email"
           type="email"
-          name="email"
+          value={formData.email}
+          onChange={(e) => handleInputChange('email', e.target.value)}
           required
           placeholder="you@example.com"
           className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1"
         />
-        <ValidationError prefix="Email" field="email" errors={state.errors} />
       </div>
 
       <div className="relative">
@@ -78,7 +142,8 @@ const ContactForm = () => {
         <Input
           id="phone"
           type="tel"
-          name="phone"
+          value={formData.phone}
+          onChange={(e) => handleInputChange('phone', e.target.value)}
           required
           placeholder="+1 (778) 555-1234"
           className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1"
@@ -89,7 +154,7 @@ const ContactForm = () => {
         <Label htmlFor="interest" className="text-navy text-sm font-medium">
           What are you looking for? *
         </Label>
-        <Select name="interest" required>
+        <Select value={formData.interest} onValueChange={(value) => handleInputChange('interest', value)} required>
           <SelectTrigger className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1">
             <SelectValue placeholder="Select your main interest" />
           </SelectTrigger>
@@ -101,15 +166,14 @@ const ContactForm = () => {
             <SelectItem value="general">❓ General Inquiry</SelectItem>
           </SelectContent>
         </Select>
-        <ValidationError prefix="Interest" field="interest" errors={state.errors} />
       </div>
 
       <button
         type="submit"
-        disabled={state.submitting}
-        className="w-full h-14 bg-gradient-to-r from-gold to-gold/80 hover:from-gold/90 hover:to-gold/60 text-navy font-bold text-lg rounded-xl shadow-lg hover:shadow-gold/40 flex items-center justify-center gap-2 transition-all duration-300 mt-2"
+        disabled={isSubmitting}
+        className="w-full h-14 bg-gradient-to-r from-gold to-gold/80 hover:from-gold/90 hover:to-gold/60 text-navy font-bold text-lg rounded-xl shadow-lg hover:shadow-gold/40 flex items-center justify-center gap-2 transition-all duration-300 mt-2 disabled:opacity-50"
       >
-        {state.submitting ? (
+        {isSubmitting ? (
           <span className="flex items-center gap-2"><Home className="w-5 h-5 animate-spin" />Submitting...</span>
         ) : (
           <span className="flex items-center gap-2"><Home className="w-5 h-5" />Get My Free Consultation</span>
