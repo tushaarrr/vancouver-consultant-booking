@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -41,6 +40,27 @@ const ContactForm = () => {
     }));
   };
 
+  const sendEmailNotification = async (leadData: typeof formData) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('send-lead-email', {
+        body: {
+          name: leadData.name,
+          email: leadData.email,
+          phone: leadData.phone,
+          interest: leadData.interest,
+        },
+      });
+
+      if (error) {
+        console.error('Error sending email notification:', error);
+      } else {
+        console.log('Email notification sent successfully:', data);
+      }
+    } catch (error) {
+      console.error('Error invoking email function:', error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -56,6 +76,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
+      // Save to Supabase
       const { error } = await supabase
         .from('leads')
         .insert([
@@ -75,6 +96,9 @@ const ContactForm = () => {
           variant: "destructive",
         });
       } else {
+        // Send email notification after successful save
+        await sendEmailNotification(formData);
+        
         setIsSubmitted(true);
         toast({
           title: "Success!",
