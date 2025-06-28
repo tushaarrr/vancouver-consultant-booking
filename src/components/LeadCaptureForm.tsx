@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +13,7 @@ import { Phone, Mail, User, Home, CheckCircle } from "lucide-react";
 import { motion } from 'framer-motion';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "@formspree/react";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -32,33 +34,15 @@ const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  
+  // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+  const [state, handleFormspree] = useForm("xvgozdko");
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
-  };
-
-  const sendEmailNotification = async (leadData: typeof formData) => {
-    try {
-      const { data, error } = await supabase.functions.invoke('send-lead-email', {
-        body: {
-          name: leadData.name,
-          email: leadData.email,
-          phone: leadData.phone,
-          interest: leadData.interest,
-        },
-      });
-
-      if (error) {
-        console.error('Error sending email notification:', error);
-      } else {
-        console.log('Email notification sent successfully:', data);
-      }
-    } catch (error) {
-      console.error('Error invoking email function:', error);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,8 +60,8 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Save to Supabase
-      const { error } = await supabase
+      // Save to Supabase first
+      const { error: supabaseError } = await supabase
         .from('leads')
         .insert([
           {
@@ -88,17 +72,27 @@ const ContactForm = () => {
           }
         ]);
 
-      if (error) {
-        console.error('Error saving lead:', error);
+      if (supabaseError) {
+        console.error('Error saving to Supabase:', supabaseError);
         toast({
-          title: "Submission Error",
-          description: "There was an error submitting your form. Please try again.",
+          title: "Database Error",
+          description: "There was an error saving your information. Please try again.",
           variant: "destructive",
         });
-      } else {
-        // Send email notification after successful save
-        await sendEmailNotification(formData);
-        
+        return;
+      }
+
+      // Send email via Formspree
+      const formspreeData = new FormData();
+      formspreeData.append('name', formData.name);
+      formspreeData.append('email', formData.email);
+      formspreeData.append('phone', formData.phone);
+      formspreeData.append('interest', formData.interest);
+      formspreeData.append('message', `New lead: ${formData.name} is interested in ${formData.interest}`);
+
+      await handleFormspree(formspreeData);
+
+      if (state.succeeded) {
         setIsSubmitted(true);
         toast({
           title: "Success!",
@@ -117,7 +111,7 @@ const ContactForm = () => {
     }
   };
 
-  if (isSubmitted) {
+  if (isSubmitted || state.succeeded) {
     return (
       <div className="flex flex-col items-center justify-center py-12 animate-fade-in-up">
         <CheckCircle className="w-16 h-16 text-gold mb-4 animate-bounce" />
@@ -135,6 +129,7 @@ const ContactForm = () => {
         </Label>
         <Input
           id="name"
+          name="name"
           type="text"
           value={formData.name}
           onChange={(e) => handleInputChange('name', e.target.value)}
@@ -150,6 +145,7 @@ const ContactForm = () => {
         </Label>
         <Input
           id="email"
+          name="email"
           type="email"
           value={formData.email}
           onChange={(e) => handleInputChange('email', e.target.value)}
@@ -165,6 +161,7 @@ const ContactForm = () => {
         </Label>
         <Input
           id="phone"
+          name="phone"
           type="tel"
           value={formData.phone}
           onChange={(e) => handleInputChange('phone', e.target.value)}
@@ -194,10 +191,10 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || state.submitting}
         className="w-full h-14 bg-gradient-to-r from-gold to-gold/80 hover:from-gold/90 hover:to-gold/60 text-navy font-bold text-lg rounded-xl shadow-lg hover:shadow-gold/40 flex items-center justify-center gap-2 transition-all duration-300 mt-2 disabled:opacity-50"
       >
-        {isSubmitting ? (
+        {(isSubmitting || state.submitting) ? (
           <span className="flex items-center gap-2"><Home className="w-5 h-5 animate-spin" />Submitting...</span>
         ) : (
           <span className="flex items-center gap-2"><Home className="w-5 h-5" />Get My Free Consultation</span>
