@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 // Video configuration - Change these paths to update the hero video
 const HERO_VIDEO = "/hero-vancouver.mov"; // Main video file
-const HERO_POSTER = "/vancouver-luxury.jpg"; // Fallback poster image
 
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
@@ -97,7 +96,7 @@ const Hero = () => {
       animate="visible"
       variants={staggerContainer}
     >
-      {/* Video Background with Fallbacks */}
+      {/* Video Background Only */}
       <div className="absolute inset-0 w-full h-full z-0">
         {/* Video Element - Main Background */}
         <video
@@ -106,10 +105,9 @@ const Hero = () => {
           loop
           muted
           playsInline
-          poster={HERO_POSTER}
           onLoadedData={() => setVideoLoaded(true)}
           onError={(e) => {
-            console.warn('Video failed to load, falling back to poster image');
+            console.warn('Video failed to load');
             setVideoLoaded(false);
           }}
         >
@@ -118,15 +116,6 @@ const Hero = () => {
           {/* Fallback message for browsers that don't support video */}
           Your browser does not support the video tag.
         </video>
-
-        {/* Fallback Image (shows if video fails to load) */}
-        {!videoLoaded && (
-          <img
-            src={HERO_POSTER}
-            alt="Vancouver Luxury Real Estate"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-        )}
 
         {/* Premium Gradient Overlay for Text Readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 z-10" />
