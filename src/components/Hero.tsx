@@ -3,7 +3,9 @@ import { ArrowRight, CheckCircle, Home, Key, TrendingUp, Menu, X } from "lucide-
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const HERO_IMAGE = "/vancouver-luxury.jpg"; // Use the new image in public/
+// Video configuration - Change these paths to update the hero video
+const HERO_VIDEO = "/hero-vancouver.mov"; // Main video file
+const HERO_POSTER = "/vancouver-luxury.jpg"; // Fallback poster image
 
 const NAV_LINKS = [
   { label: "Home", href: "#hero" },
@@ -13,35 +15,59 @@ const NAV_LINKS = [
   { label: "Contact", href: "#footer" },
 ];
 
+// Animation variants for smooth, premium transitions
 const navVariants = {
   hidden: { y: -40, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.7 } },
+  visible: { 
+    y: 0, 
+    opacity: 1, 
+    transition: { 
+      duration: 0.8,
+      ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for premium feel
+    } 
+  },
 };
 
-const heroVariants = {
-  hidden: { opacity: 0, scale: 0.98 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 1 } },
+const heroContentVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 1.2,
+      delay: 0.3,
+      ease: [0.25, 0.46, 0.45, 0.94]
+    } 
+  },
 };
 
 const staggerContainer = {
   visible: {
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      staggerChildren: 0.2,
+      delayChildren: 0.5,
     },
   },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.8,
+      ease: [0.25, 0.46, 0.45, 0.94]
+    } 
+  },
 };
 
 const Hero = () => {
   const [navBg, setNavBg] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
-  // Navbar background on scroll
+  // Navbar background on scroll with smooth transition
   useEffect(() => {
     const handleScroll = () => {
       setNavBg(window.scrollY > 40);
@@ -67,91 +93,206 @@ const Hero = () => {
     <motion.section
       id="hero"
       className="relative min-h-screen flex flex-col justify-center overflow-hidden px-0"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainer}
     >
-      {/* Navbar */}
+      {/* Video Background with Fallbacks */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        {/* Video Element - Main Background */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={HERO_POSTER}
+          onLoadedData={() => setVideoLoaded(true)}
+          onError={(e) => {
+            console.warn('Video failed to load, falling back to poster image');
+            setVideoLoaded(false);
+          }}
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+          <source src={HERO_VIDEO} type="video/quicktime" />
+          {/* Fallback message for browsers that don't support video */}
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Fallback Image (shows if video fails to load) */}
+        {!videoLoaded && (
+          <img
+            src={HERO_POSTER}
+            alt="Vancouver Luxury Real Estate"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        )}
+
+        {/* Premium Gradient Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 z-10" />
+        
+        {/* Additional subtle overlay for enhanced text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/30 via-transparent to-navy/30 z-20" />
+      </div>
+
+      {/* Navigation Bar */}
       <motion.nav
-        className={`fixed top-0 left-0 w-full z-30 transition-all duration-300 ${navBg ? "bg-black/90" : "bg-transparent"} backdrop-blur shadow-lg border-b border-gold/30 flex items-center justify-between px-4 sm:px-6 md:px-16 py-3 md:py-4`}
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
+          navBg 
+            ? "bg-black/95 backdrop-blur-xl shadow-2xl border-b border-gold/20" 
+            : "bg-transparent"
+        } flex items-center justify-between px-4 sm:px-6 md:px-16 py-3 md:py-4`}
+        variants={navVariants}
       >
-        <span className="font-serif text-xl sm:text-2xl text-gold font-bold tracking-wide">Realty.com</span>
-        {/* Desktop Nav */}
+        <motion.span 
+          className="font-serif text-xl sm:text-2xl text-gold font-bold tracking-wide"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+        >
+          Realty.com
+        </motion.span>
+        
+        {/* Desktop Navigation */}
         <ul className="hidden md:flex gap-6 lg:gap-10">
-          {NAV_LINKS.map(link => (
-            <li key={link.href}>
+          {NAV_LINKS.map((link, index) => (
+            <motion.li 
+              key={link.href}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.5 }}
+            >
               <a
                 href={link.href}
-                className="text-white font-medium hover:text-gold transition-colors duration-200 px-2 py-1 rounded focus:outline-none focus:text-gold"
+                className="text-white font-medium hover:text-gold transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/10 focus:outline-none focus:text-gold relative group"
               >
                 {link.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
               </a>
-            </li>
+            </motion.li>
           ))}
         </ul>
-        {/* Hamburger Icon (Mobile Only) */}
-        <button
-          className="flex md:hidden items-center justify-center p-2 rounded focus:outline-none focus:ring-2 focus:ring-gold"
+        
+        {/* Mobile Menu Button */}
+        <motion.button
+          className="flex md:hidden items-center justify-center p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 hover:bg-white/10 transition-all duration-300"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Open navigation menu"
+          whileTap={{ scale: 0.95 }}
         >
           {mobileOpen ? <X className="w-7 h-7 text-gold" /> : <Menu className="w-7 h-7 text-gold" />}
-        </button>
-        {/* Mobile Menu (Mobile Only) */}
+        </motion.button>
+        
+        {/* Mobile Menu */}
         <motion.ul
           initial={{ height: 0, opacity: 0 }}
           animate={mobileOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`absolute left-0 top-full w-full bg-black/95 backdrop-blur shadow-lg flex flex-col md:hidden overflow-hidden rounded-b-xl ${mobileOpen ? "py-4" : "py-0"}`}
+          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className={`absolute left-0 top-full w-full bg-black/95 backdrop-blur-xl shadow-2xl flex flex-col md:hidden overflow-hidden rounded-b-2xl border-b border-gold/20 ${mobileOpen ? "py-4" : "py-0"}`}
         >
-          {NAV_LINKS.map(link => (
-            <li key={link.href} className="w-full">
+          {NAV_LINKS.map((link, index) => (
+            <motion.li 
+              key={link.href} 
+              className="w-full"
+              initial={{ x: -50, opacity: 0 }}
+              animate={mobileOpen ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.3 }}
+            >
               <a
                 href={link.href}
-                className="block w-full text-lg text-white font-medium px-6 py-4 border-b border-gold/20 active:bg-gold/10 focus:bg-gold/10"
+                className="block w-full text-lg text-white font-medium px-6 py-4 border-b border-gold/10 hover:bg-gold/10 focus:bg-gold/10 transition-all duration-300"
                 onClick={handleNavClick}
               >
                 {link.label}
               </a>
-            </li>
+            </motion.li>
           ))}
         </motion.ul>
       </motion.nav>
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 w-full h-full">
-        <img
-          src={HERO_IMAGE}
-          alt="Vancouver Luxury Real Estate"
-          className="w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent opacity-60" />
-      </div>
-      <div className="relative z-10 text-center max-w-2xl mx-auto px-4 py-28 sm:py-32 flex flex-col items-center">
-        <h1 className="font-serif text-white text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 drop-shadow-lg leading-tight" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-          Vancouver's Premier Real Estate Consultant
-        </h1>
-        <p className="text-base sm:text-lg md:text-2xl font-semibold mb-6 sm:mb-8" style={{ color: '#F4C430' }}>
-          Guiding High-End Buyers & Sellers to Success
-        </p>
-        <a
-          href="#lead-form"
-          className="inline-block bg-[#F4C430] text-black font-bold px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-lg hover:shadow-yellow-400/60 hover:scale-105 transition duration-300 text-base sm:text-lg"
+
+      {/* Hero Content */}
+      <div className="relative z-30 text-center max-w-4xl mx-auto px-4 py-28 sm:py-32 flex flex-col items-center">
+        <motion.div
+          variants={heroContentVariants}
+          className="space-y-6"
         >
-          Book Free Consultation
-        </a>
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8 sm:mt-10">
-          <span className="flex items-center gap-2 bg-white px-4 sm:px-5 py-2 rounded-full shadow font-semibold text-xs sm:text-sm">
-            🌟 500+ Families Helped
-          </span>
-          <span className="flex items-center gap-2 bg-white px-4 sm:px-5 py-2 rounded-full shadow font-semibold text-xs sm:text-sm">
-            🏆 Top Rated Realtor
-          </span>
-        </div>
+          {/* Main Headline */}
+          <motion.h1 
+            className="font-serif text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 drop-shadow-2xl leading-tight" 
+            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+            variants={fadeUpVariant}
+          >
+            Vancouver's Premier Real Estate Consultant
+          </motion.h1>
+          
+          {/* Subheadline */}
+          <motion.p 
+            className="text-base sm:text-lg md:text-2xl lg:text-3xl font-semibold mb-6 sm:mb-8 drop-shadow-lg" 
+            style={{ color: '#F4C430' }}
+            variants={fadeUpVariant}
+          >
+            Guiding High-End Buyers & Sellers to Success
+          </motion.p>
+          
+          {/* CTA Button */}
+          <motion.div
+            variants={fadeUpVariant}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
+            <a
+              href="#lead-form"
+              className="inline-block bg-gradient-to-r from-[#F4C430] to-[#DAA520] text-black font-bold px-8 sm:px-12 py-4 sm:py-5 rounded-full shadow-2xl hover:shadow-yellow-400/60 transition-all duration-300 text-base sm:text-lg lg:text-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-400/50"
+            >
+              Book Free Consultation
+              <ArrowRight className="inline-block ml-2 w-5 h-5" />
+            </a>
+          </motion.div>
+          
+          {/* Trust Badges */}
+          <motion.div 
+            className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8 sm:mt-12"
+            variants={staggerContainer}
+          >
+            {[
+              { icon: "🌟", text: "500+ Families Helped" },
+              { icon: "🏆", text: "Top Rated Realtor" },
+              { icon: "⭐", text: "Google 5.0 Rating" }
+            ].map((badge, index) => (
+              <motion.span
+                key={index}
+                className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-xl font-semibold text-xs sm:text-sm text-navy border border-white/20 hover:bg-white transition-all duration-300"
+                variants={fadeUpVariant}
+                whileHover={{ scale: 1.05, y: -2 }}
+                transition={{ duration: 0.2 }}
+              >
+                <span className="text-lg">{badge.icon}</span>
+                {badge.text}
+              </motion.span>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <motion.div
+          className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <motion.div
+            className="w-1 h-3 bg-white/70 rounded-full mt-2"
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+      </motion.div>
     </motion.section>
   );
 };
