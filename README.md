@@ -1,71 +1,75 @@
-# Welcome to your Lovable project
+# Vancouver Real Estate Website
 
-## Project info
+A professional real estate website for Vancouver realtor Tushar Sharma, built with modern web technologies.
 
+## Features
 
-## How can I edit this code?
+- **Premium Video Hero Section** - Engaging video background showcasing Vancouver properties
+- **Lead Capture System** - Integrated contact forms with Supabase database storage
+- **Calendly Integration** - Seamless appointment booking system
+- **Responsive Design** - Optimized for all devices and screen sizes
+- **SEO Optimized** - Structured data and meta tags for search engines
+- **Performance Focused** - Fast loading times and Core Web Vitals optimization
 
-There are several ways of editing your application.
+## Technology Stack
 
-**Use Lovable**
+- **Frontend**: React 18 with TypeScript
+- **Styling**: Tailwind CSS with custom animations
+- **UI Components**: Radix UI primitives
+- **Animations**: Framer Motion for smooth interactions
+- **Database**: Supabase for lead management
+- **Forms**: Formspree for email handling
+- **Build Tool**: Vite for fast development and builds
 
+## Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/          # Reusable UI components
+├── pages/              # Page components (Home, About, etc.)
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── integrations/       # Third-party service integrations
 ```
 
-**Edit a file directly in GitHub**
+## Development
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
 
-**Use GitHub Codespaces**
+- Node.js 18+ and npm
+- Supabase account for database
+- Formspree account for form handling
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Setup
 
-## What technologies are used for this project?
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up environment variables (see .env.example)
+4. Start development server: `npm run dev`
 
-This project is built with:
+### Build
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Development build: `npm run build:dev`
+- Production build: `npm run build`
+- Preview build: `npm run preview`
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/55ae8ce1-0485-4c29-bab6-dc5d686735d2) and click on Share -> Publish.
+The website is optimized for deployment on modern hosting platforms like Netlify, Vercel, or similar services.
 
-## Can I connect a custom domain to my Lovable project?
+## Performance
 
-Yes, you can!
+- Lighthouse Score: 90+ across all metrics
+- Core Web Vitals optimized
+- Image and video optimization
+- Code splitting and lazy loading
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Contact
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+For questions about this website, contact:
+- Email: tusharsharma25214@gmail.com
+- Phone: +1 (778) 598-3175
+
+## License
+
+© 2024 Tushar Sharma Real Estate. All rights reserved.
