@@ -211,7 +211,7 @@ const Hero = () => {
             style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
             variants={fadeUpVariant}
           >
-            Vancouver's Premier Real Estate Consultant
+            Greater Vancouver's Premier Real Estate Consultant
           </motion.h1>
           
           {/* Subheadline */}
