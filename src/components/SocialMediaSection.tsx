@@ -178,27 +178,21 @@ const SocialMediaSection = () => {
           ))}
         </motion.div>
         
-        {/* Email CTA */}
+        {/* Premium Email CTA Button */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={ctaVariants}
         >
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="font-bold px-10 py-4 text-lg rounded-full border-3 border-purple-500 text-purple-600 hover:bg-purple-50 hover:border-purple-600 hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+          <motion.a 
+            href="mailto:tusharsharma25214@gmail.com"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-900 to-emerald-600 hover:from-blue-800 hover:to-emerald-500 text-white font-bold px-10 py-4 text-lg rounded-xl shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-400/50"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <motion.a 
-              href="mailto:tusharsharma25214@gmail.com"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              📧 Or email me directly at tusharsharma25214@gmail.com
-            </motion.a>
-          </Button>
+            📧 Email me directly at tusharsharma25214@gmail.com
+          </motion.a>
         </motion.div>
       </div>
     </section>

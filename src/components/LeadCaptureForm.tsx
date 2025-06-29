@@ -154,7 +154,7 @@ const ContactForm = () => {
             ease: "easeInOut" 
           }}
         >
-          <CheckCircle className="w-16 h-16 text-gold mb-4" />
+          <CheckCircle className="w-16 h-16 text-emerald-600 mb-4" />
         </motion.div>
         <div className="text-center text-navy font-serif text-2xl font-semibold mb-2">Thank you!</div>
         <div className="text-center text-navy/80 text-lg">I'll get back to you within 2 hours.</div>
@@ -172,7 +172,7 @@ const ContactForm = () => {
     >
       <motion.div className="relative" variants={fadeInUp}>
         <Label htmlFor="name" className="text-navy text-sm font-medium flex gap-2">
-          <User className="w-5 h-5 text-gold" /> Full Name *
+          <User className="w-5 h-5 text-emerald-600" /> Full Name *
         </Label>
         <Input
           id="name"
@@ -182,13 +182,13 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange('name', e.target.value)}
           required
           placeholder="Enter your full name"
-          className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-gold/50"
+          className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400"
         />
       </motion.div>
 
       <motion.div className="relative" variants={fadeInUp}>
         <Label htmlFor="email" className="text-navy text-sm font-medium flex gap-2">
-          <Mail className="w-5 h-5 text-gold" /> Email Address *
+          <Mail className="w-5 h-5 text-emerald-600" /> Email Address *
         </Label>
         <Input
           id="email"
@@ -198,13 +198,13 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange('email', e.target.value)}
           required
           placeholder="you@example.com"
-          className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-gold/50"
+          className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400"
         />
       </motion.div>
 
       <motion.div className="relative" variants={fadeInUp}>
         <Label htmlFor="phone" className="text-navy text-sm font-medium flex gap-2">
-          <Phone className="w-5 h-5 text-gold" /> Phone Number *
+          <Phone className="w-5 h-5 text-emerald-600" /> Phone Number *
         </Label>
         <Input
           id="phone"
@@ -214,7 +214,7 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange('phone', e.target.value)}
           required
           placeholder="+1 (778) 555-1234"
-          className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-gold/50"
+          className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400"
         />
       </motion.div>
 
@@ -223,10 +223,10 @@ const ContactForm = () => {
           What are you looking for? *
         </Label>
         <Select value={formData.interest} onValueChange={(value) => handleInputChange('interest', value)} required>
-          <SelectTrigger className="h-12 border-2 border-gold/30 focus:border-gold bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-gold/50">
+          <SelectTrigger className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400">
             <SelectValue placeholder="Select your main interest" />
           </SelectTrigger>
-          <SelectContent className="bg-white border-2 border-gold/30">
+          <SelectContent className="bg-white border-2 border-emerald-200">
             <SelectItem value="buy">🏠 Buy a Property</SelectItem>
             <SelectItem value="sell">💰 Sell My Property</SelectItem>
             <SelectItem value="investment">📈 Investment Property</SelectItem>
@@ -239,7 +239,7 @@ const ContactForm = () => {
       <motion.button
         type="submit"
         disabled={isSubmitting || state.submitting}
-        className="w-full h-14 bg-gradient-to-r from-gold to-gold/80 hover:from-gold/90 hover:to-gold/60 text-navy font-bold text-lg rounded-xl shadow-lg hover:shadow-gold/40 flex items-center justify-center gap-2 transition-all duration-300 mt-2 disabled:opacity-50 transform hover:scale-105"
+        className="w-full h-14 bg-gradient-to-r from-blue-900 to-emerald-600 hover:from-blue-800 hover:to-emerald-500 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-emerald-500/30 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out mt-2 disabled:opacity-50 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-400/50"
         variants={fadeInUp}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
@@ -276,7 +276,7 @@ const LeadCaptureForm = () => {
   return (
     <section id="lead-form" className="w-full flex justify-center items-center">
       <motion.div
-        className="w-full max-w-xl bg-white/70 border border-gold rounded-3xl shadow-2xl p-10 md:p-14 backdrop-blur-xl hover:shadow-3xl transition-all duration-500"
+        className="w-full max-w-xl bg-white/70 border border-emerald-200 rounded-3xl shadow-2xl p-10 md:p-14 backdrop-blur-xl hover:shadow-3xl transition-all duration-500"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}

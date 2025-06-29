@@ -222,7 +222,7 @@ const Hero = () => {
             Guiding High-End Buyers & Sellers to Success
           </motion.p>
           
-          {/* CTA Button */}
+          {/* Premium CTA Button */}
           <motion.div
             variants={fadeUpVariant}
             whileHover={{ scale: 1.05 }}
@@ -231,10 +231,10 @@ const Hero = () => {
           >
             <a
               href="#lead-form"
-              className="inline-block bg-gradient-to-r from-[#F4C430] to-[#DAA520] text-black font-bold px-8 sm:px-12 py-4 sm:py-5 rounded-full shadow-2xl hover:shadow-yellow-400/60 transition-all duration-300 text-base sm:text-lg lg:text-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-400/50"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-900 to-emerald-600 hover:from-blue-800 hover:to-emerald-500 text-white font-bold px-10 sm:px-14 py-4 sm:py-5 rounded-xl shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 text-base sm:text-lg lg:text-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-400/50 group"
             >
               Book Free Consultation
-              <ArrowRight className="inline-block ml-2 w-5 h-5" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
           </motion.div>
           
