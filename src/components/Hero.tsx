@@ -7,11 +7,11 @@ import { useEffect, useState } from "react";
 const HERO_VIDEO = "/hero-vancouver.mov"; // Main video file
 
 const NAV_LINKS = [
-  { label: "Home", href: "#hero" },
-  { label: "Consultation", href: "#lead-form" },
-  { label: "Book", href: "#calendly-section" },
-  { label: "What to Expect", href: "#what-to-expect" },
-  { label: "Contact", href: "#footer" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "Contact", href: "/contact" },
+  { label: "Book", href: "/#calendly-section" },
 ];
 
 // Animation variants for smooth, premium transitions
@@ -133,16 +133,17 @@ const Hero = () => {
         } flex items-center justify-between px-4 sm:px-6 md:px-16 py-3 md:py-4`}
         variants={navVariants}
       >
-        <motion.span 
+        <motion.a 
+          href="/"
           className="font-serif text-xl sm:text-2xl text-gold font-bold tracking-wide"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         >
           Realty.com
-        </motion.span>
+        </motion.a>
         
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-6 lg:gap-10">
+        <ul className="hidden md:flex gap-6 lg:gap-8">
           {NAV_LINKS.map((link, index) => (
             <motion.li 
               key={link.href}
