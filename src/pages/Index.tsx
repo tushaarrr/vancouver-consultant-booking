@@ -14,8 +14,7 @@ const fadeInUp = {
     opacity: 1, 
     y: 0, 
     transition: { 
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94] // Custom cubic-bezier for smooth, premium feel
+      duration: 0.8
     } 
   },
 };
@@ -26,8 +25,7 @@ const slideLeft = {
     opacity: 1, 
     x: 0, 
     transition: { 
-      duration: 0.9,
-      ease: [0.25, 0.46, 0.45, 0.94]
+      duration: 0.9
     } 
   },
 };
@@ -38,8 +36,7 @@ const zoomIn = {
     opacity: 1, 
     scale: 1, 
     transition: { 
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94]
+      duration: 0.8
     } 
   },
 };
@@ -172,7 +169,7 @@ const Index = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.8, y: 100 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ delay: 3, duration: 0.8 }}
       >
         <FloatingWhatsApp />
       </motion.div>

@@ -169,7 +169,7 @@ const Hero = () => {
         <motion.ul
           initial={{ height: 0, opacity: 0 }}
           animate={mobileOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.4 }}
           className={`absolute left-0 top-full w-full bg-black/95 backdrop-blur-xl shadow-2xl flex flex-col md:hidden overflow-hidden rounded-b-2xl border-b border-gold/20 ${mobileOpen ? "py-4" : "py-0"}`}
         >
           {NAV_LINKS.map((link, index) => (
