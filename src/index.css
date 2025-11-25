@@ -6,44 +6,51 @@
 
 @layer base {
   :root {
+    /* Minimalistic color palette - clean and modern */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 20% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Professional dark blue-gray for primary */
+    --primary: 220 25% 20%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Subtle light gray for secondary */
+    --secondary: 220 15% 96%;
+    --secondary-foreground: 220 20% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted backgrounds */
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Refined accent - subtle blue */
+    --accent: 210 60% 95%;
+    --accent-foreground: 220 25% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Minimal borders */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 210 80% 50%;
 
     --radius: 0.5rem;
 
+    /* Sidebar tokens */
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 220 20% 20%;
+    --sidebar-primary: 220 25% 20%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 220 25% 20%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 210 80% 50%;
   }
 
   .dark {
@@ -244,15 +251,15 @@
   transform: scale(1.05);
 }
 
-/* Premium CTA Button Styles */
+/* Minimalistic CTA Button Styles */
 .premium-cta {
-  background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
+  background: hsl(220, 25%, 20%);
   color: white;
-  font-weight: bold;
-  padding: 1rem 2.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -262,38 +269,31 @@
 }
 
 .premium-cta:hover {
-  background: linear-gradient(135deg, #1e40af 0%, #047857 100%);
-  transform: scale(1.05);
-  box-shadow: 0 25px 50px -12px rgba(5, 150, 105, 0.3);
+  background: hsl(220, 25%, 15%);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .premium-cta:focus {
   outline: none;
-  ring: 4px;
-  ring-color: rgba(5, 150, 105, 0.5);
+  ring: 2px;
+  ring-color: hsl(210, 80%, 50%, 0.5);
 }
 
 .premium-cta:active {
-  transform: scale(0.98);
+  transform: translateY(0);
 }
 
-/* Gradient text utilities */
+/* Minimal gradient utilities - subtle and refined */
 .gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, hsl(220, 60%, 50%) 0%, hsl(220, 70%, 40%) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-gold {
-  background: linear-gradient(135deg, #F4C430 0%, #DAA520 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-emerald {
-  background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
+.gradient-accent {
+  background: linear-gradient(135deg, hsl(220, 25%, 20%) 0%, hsl(220, 30%, 15%) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -306,24 +306,22 @@ video {
   perspective: 1000px;
 }
 
-/* Custom scrollbar with luxury styling */
+/* Minimal scrollbar styling */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8f9fa;
-  border-radius: 5px;
+  background: hsl(220, 15%, 96%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
-  border-radius: 5px;
-  border: 2px solid #f8f9fa;
+  background: hsl(220, 15%, 70%);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #1e40af 0%, #047857 100%);
+  background: hsl(220, 20%, 60%);
 }
 
 /* Smooth scroll behavior with enhanced easing */
@@ -354,9 +352,9 @@ img, video {
   }
 }
 
-/* Focus styles for accessibility */
+/* Minimal focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid #059669;
+  outline: 2px solid hsl(210, 80%, 50%);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -376,41 +374,31 @@ img, video {
   }
 }
 
-/* WCAG AA Compliant Color Contrast */
+/* Minimal semantic color utilities */
 .text-navy {
-  color: #0f1e3e;
-  /* Contrast ratio: 14.8:1 against white background */
+  color: hsl(220, 25%, 20%);
 }
 
-.text-emerald-600 {
-  color: #059669;
-  /* Contrast ratio: 4.5:1 against white background */
+.text-accent {
+  color: hsl(210, 80%, 50%);
 }
 
-.bg-emerald-600 {
-  background-color: #059669;
+.bg-accent {
+  background-color: hsl(210, 80%, 50%);
 }
 
-.border-emerald-200 {
-  border-color: #a7f3d0;
+.border-subtle {
+  border-color: hsl(220, 13%, 91%);
 }
 
-.border-emerald-600 {
-  border-color: #059669;
+.hover\:border-accent:hover {
+  border-color: hsl(210, 80%, 50%);
 }
 
-.hover\:border-emerald-400:hover {
-  border-color: #34d399;
+.focus\:border-accent:focus {
+  border-color: hsl(210, 80%, 50%);
 }
 
-.focus\:border-emerald-600:focus {
-  border-color: #059669;
-}
-
-.shadow-emerald-500\/30 {
-  box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.3);
-}
-
-.ring-emerald-400\/50 {
-  ring-color: rgba(52, 211, 153, 0.5);
+.shadow-subtle {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }

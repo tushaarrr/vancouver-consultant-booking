@@ -154,10 +154,10 @@ const ContactForm = () => {
             ease: "easeInOut" 
           }}
         >
-          <CheckCircle className="w-16 h-16 text-emerald-600 mb-4" />
+          <CheckCircle className="w-16 h-16 text-primary mb-4" />
         </motion.div>
-        <div className="text-center text-navy font-serif text-2xl font-semibold mb-2">Thank you!</div>
-        <div className="text-center text-navy/80 text-lg">I'll get back to you within 2 hours.</div>
+        <div className="text-center text-foreground font-serif text-2xl font-semibold mb-2">Thank you!</div>
+        <div className="text-center text-muted-foreground text-lg">I'll get back to you within 2 hours.</div>
       </motion.div>
     );
   }
@@ -171,8 +171,8 @@ const ContactForm = () => {
       animate="visible"
     >
       <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="name" className="text-navy text-sm font-medium flex gap-2">
-          <User className="w-5 h-5 text-emerald-600" /> Full Name *
+        <Label htmlFor="name" className="text-foreground text-sm font-medium flex gap-2 mb-2">
+          <User className="w-4 h-4 text-primary" /> Full Name *
         </Label>
         <Input
           id="name"
@@ -182,13 +182,13 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange('name', e.target.value)}
           required
           placeholder="Enter your full name"
-          className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400"
+          className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground"
         />
       </motion.div>
 
       <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="email" className="text-navy text-sm font-medium flex gap-2">
-          <Mail className="w-5 h-5 text-emerald-600" /> Email Address *
+        <Label htmlFor="email" className="text-foreground text-sm font-medium flex gap-2 mb-2">
+          <Mail className="w-4 h-4 text-primary" /> Email Address *
         </Label>
         <Input
           id="email"
@@ -198,13 +198,13 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange('email', e.target.value)}
           required
           placeholder="you@example.com"
-          className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400"
+          className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground"
         />
       </motion.div>
 
       <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="phone" className="text-navy text-sm font-medium flex gap-2">
-          <Phone className="w-5 h-5 text-emerald-600" /> Phone Number *
+        <Label htmlFor="phone" className="text-foreground text-sm font-medium flex gap-2 mb-2">
+          <Phone className="w-4 h-4 text-primary" /> Phone Number *
         </Label>
         <Input
           id="phone"
@@ -214,19 +214,19 @@ const ContactForm = () => {
           onChange={(e) => handleInputChange('phone', e.target.value)}
           required
           placeholder="+1 (778) 555-1234"
-          className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400"
+          className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground"
         />
       </motion.div>
 
       <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="interest" className="text-navy text-sm font-medium">
+        <Label htmlFor="interest" className="text-foreground text-sm font-medium mb-2 block">
           What are you looking for? *
         </Label>
         <Select value={formData.interest} onValueChange={(value) => handleInputChange('interest', value)} required>
-          <SelectTrigger className="h-12 border-2 border-emerald-200 focus:border-emerald-600 bg-white/80 backdrop-blur placeholder:text-navy/40 text-navy rounded-lg mt-1 transition-all duration-300 hover:border-emerald-400">
+          <SelectTrigger className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground">
             <SelectValue placeholder="Select your main interest" />
           </SelectTrigger>
-          <SelectContent className="bg-white border-2 border-emerald-200">
+          <SelectContent className="bg-card border-2 border-border">
             <SelectItem value="buy">🏠 Buy a Property</SelectItem>
             <SelectItem value="sell">💰 Sell My Property</SelectItem>
             <SelectItem value="investment">📈 Investment Property</SelectItem>
@@ -239,7 +239,7 @@ const ContactForm = () => {
       <motion.button
         type="submit"
         disabled={isSubmitting || state.submitting}
-        className="w-full h-14 bg-gradient-to-r from-blue-900 to-emerald-600 hover:from-blue-800 hover:to-emerald-500 text-white font-bold text-lg rounded-xl shadow-2xl hover:shadow-emerald-500/30 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out mt-2 disabled:opacity-50 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-400/50"
+        className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base rounded-lg shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all duration-200 mt-2 disabled:opacity-50 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ring"
         variants={fadeInUp}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
@@ -263,7 +263,7 @@ const ContactForm = () => {
       </motion.button>
 
       <motion.p 
-        className="text-xs text-center text-navy/60 mt-2"
+        className="text-xs text-center text-muted-foreground mt-2"
         variants={fadeInUp}
       >
         🔒 Your info is safe and used only for this consultation.
@@ -276,21 +276,21 @@ const LeadCaptureForm = () => {
   return (
     <section id="lead-form" className="w-full flex justify-center items-center">
       <motion.div
-        className="w-full max-w-xl bg-white/70 border border-emerald-200 rounded-3xl shadow-2xl p-10 md:p-14 backdrop-blur-xl hover:shadow-3xl transition-all duration-500"
+        className="w-full max-w-xl bg-card border-2 border-border rounded-2xl shadow-lg p-10 md:p-12 hover:shadow-xl transition-all duration-300"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={zoomIn}
-        whileHover={{ scale: 1.02 }}
+        whileHover={{ scale: 1.01 }}
       >
         <motion.div 
           className="text-center mb-8"
           variants={fadeInUp}
         >
-          <h2 className="font-serif text-3xl md:text-4xl text-navy font-bold mb-2">
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground font-bold mb-2">
             Request a Private Consultation
           </h2>
-          <p className="text-navy/80 text-lg">
+          <p className="text-muted-foreground text-base">
             Fill out the form and I'll personally reach out within 2 hours to discuss your real estate goals.
           </p>
         </motion.div>
