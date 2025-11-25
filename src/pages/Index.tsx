@@ -52,8 +52,8 @@ const staggerContainer = {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-lightbg font-sans">
-      {/* Hero Section with Video Background */}
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
       <Hero />
 
       {/* Main Content */}

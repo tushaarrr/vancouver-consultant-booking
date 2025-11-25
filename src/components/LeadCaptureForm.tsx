@@ -8,40 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Phone, Mail, User, Home, CheckCircle } from "lucide-react";
+import { Phone, Mail, User, Sparkles, CheckCircle, Send } from "lucide-react";
 import { motion } from 'framer-motion';
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "@formspree/react";
 
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8 } 
-  },
-};
-
-const zoomIn = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { duration: 0.8 } 
-  },
-};
-
-const staggerContainer = {
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const ContactForm = () => {
+const LeadCaptureForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,7 +24,6 @@ const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
   
-  // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
   const [state, handleFormspree] = useForm("mnnvgqgd");
 
   const handleInputChange = (field: string, value: string) => {
@@ -62,7 +33,7 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.phone || !formData.interest) {
@@ -77,10 +48,8 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Lazy load supabase client only when needed
       const { supabase } = await import("@/integrations/supabase/client");
       
-      // Save to Supabase first
       const { error: supabaseError } = await supabase
         .from('leads')
         .insert([
@@ -93,37 +62,25 @@ const ContactForm = () => {
         ]);
 
       if (supabaseError) {
-        console.error('Error saving to database:', supabaseError);
-        toast({
-          title: "Database Error",
-          description: "There was an error saving your information. Please try again.",
-          variant: "destructive",
-        });
-        return;
+        console.error('Database error:', supabaseError);
       }
 
-      // Send email via Formspree
-      const formspreeData = new FormData();
-      formspreeData.append('name', formData.name);
-      formspreeData.append('email', formData.email);
-      formspreeData.append('phone', formData.phone);
-      formspreeData.append('interest', formData.interest);
-      formspreeData.append('message', `New lead: ${formData.name} is interested in ${formData.interest}`);
-
-      await handleFormspree(formspreeData);
-
-      if (state.succeeded) {
-        setIsSubmitted(true);
-        toast({
-          title: "Success!",
-          description: "Your consultation request has been submitted successfully.",
-        });
-      }
-    } catch (error) {
-      console.error('Error:', error);
+      await handleFormspree(e);
+      
+      setIsSubmitted(true);
       toast({
-        title: "Submission Error",
-        description: "There was an error submitting your form. Please try again.",
+        title: "Success!",
+        description: "We'll contact you shortly to discuss your real estate goals.",
+      });
+      
+      setFormData({ name: '', email: '', phone: '', interest: '' });
+      
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -131,168 +88,159 @@ const ContactForm = () => {
     }
   };
 
-  if (isSubmitted || state.succeeded) {
+  if (isSubmitted) {
     return (
-      <motion.div 
-        className="flex flex-col items-center justify-center py-12"
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
+        className="glass-premium rounded-3xl p-12 text-center"
       >
         <motion.div
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 10, -10, 0]
-          }}
-          transition={{ 
-            duration: 2, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
-          }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", duration: 0.6 }}
+          className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center"
         >
-          <CheckCircle className="w-16 h-16 text-primary mb-4" />
+          <CheckCircle className="w-12 h-12 text-white" />
         </motion.div>
-        <div className="text-center text-foreground font-serif text-2xl font-semibold mb-2">Thank you!</div>
-        <div className="text-center text-muted-foreground text-lg">I'll get back to you within 2 hours.</div>
+        <h3 className="text-3xl font-bold gradient-text-rainbow mb-4">Thank You!</h3>
+        <p className="text-white/90 text-lg">We'll be in touch soon to discuss your real estate journey.</p>
       </motion.div>
     );
   }
 
   return (
-    <motion.form 
-      onSubmit={handleSubmit} 
-      className="space-y-7"
-      variants={staggerContainer}
-      initial="hidden"
-      animate="visible"
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="glass-premium rounded-3xl p-8 md:p-12 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500"
     >
-      <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="name" className="text-foreground text-sm font-medium flex gap-2 mb-2">
-          <User className="w-4 h-4 text-primary" /> Full Name *
-        </Label>
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={(e) => handleInputChange('name', e.target.value)}
-          required
-          placeholder="Enter your full name"
-          className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground"
-        />
-      </motion.div>
-
-      <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="email" className="text-foreground text-sm font-medium flex gap-2 mb-2">
-          <Mail className="w-4 h-4 text-primary" /> Email Address *
-        </Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={(e) => handleInputChange('email', e.target.value)}
-          required
-          placeholder="you@example.com"
-          className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground"
-        />
-      </motion.div>
-
-      <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="phone" className="text-foreground text-sm font-medium flex gap-2 mb-2">
-          <Phone className="w-4 h-4 text-primary" /> Phone Number *
-        </Label>
-        <Input
-          id="phone"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={(e) => handleInputChange('phone', e.target.value)}
-          required
-          placeholder="+1 (778) 555-1234"
-          className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground"
-        />
-      </motion.div>
-
-      <motion.div className="relative" variants={fadeInUp}>
-        <Label htmlFor="interest" className="text-foreground text-sm font-medium mb-2 block">
-          What are you looking for? *
-        </Label>
-        <Select value={formData.interest} onValueChange={(value) => handleInputChange('interest', value)} required>
-          <SelectTrigger className="h-11 border-2 border-border focus:border-ring bg-background placeholder:text-muted-foreground text-foreground rounded-lg transition-all duration-200 hover:border-muted-foreground">
-            <SelectValue placeholder="Select your main interest" />
-          </SelectTrigger>
-          <SelectContent className="bg-card border-2 border-border">
-            <SelectItem value="buy">🏠 Buy a Property</SelectItem>
-            <SelectItem value="sell">💰 Sell My Property</SelectItem>
-            <SelectItem value="investment">📈 Investment Property</SelectItem>
-            <SelectItem value="consultation">🎯 Market Consultation</SelectItem>
-            <SelectItem value="general">❓ General Inquiry</SelectItem>
-          </SelectContent>
-        </Select>
-      </motion.div>
-
-      <motion.button
-        type="submit"
-        disabled={isSubmitting || state.submitting}
-        className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base rounded-lg shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all duration-200 mt-2 disabled:opacity-50 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-ring"
-        variants={fadeInUp}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {(isSubmitting || state.submitting) ? (
-          <span className="flex items-center gap-2">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            >
-              <Home className="w-5 h-5" />
-            </motion.div>
-            Submitting...
-          </span>
-        ) : (
-          <span className="flex items-center gap-2">
-            <Home className="w-5 h-5" />
-            Get My Free Consultation
-          </span>
-        )}
-      </motion.button>
-
-      <motion.p 
-        className="text-xs text-center text-muted-foreground mt-2"
-        variants={fadeInUp}
-      >
-        🔒 Your info is safe and used only for this consultation.
-      </motion.p>
-    </motion.form>
-  );
-};
-
-const LeadCaptureForm = () => {
-  return (
-    <section id="lead-form" className="w-full flex justify-center items-center">
-      <motion.div
-        className="w-full max-w-xl bg-card border-2 border-border rounded-2xl shadow-lg p-10 md:p-12 hover:shadow-xl transition-all duration-300"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={zoomIn}
-        whileHover={{ scale: 1.01 }}
-      >
-        <motion.div 
-          className="text-center mb-8"
-          variants={fadeInUp}
+      {/* Header */}
+      <div className="text-center mb-8">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", delay: 0.2 }}
+          className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-4"
         >
-          <h2 className="font-serif text-3xl md:text-4xl text-foreground font-bold mb-2">
-            Request a Private Consultation
-          </h2>
-          <p className="text-muted-foreground text-base">
-            Fill out the form and I'll personally reach out within 2 hours to discuss your real estate goals.
-          </p>
+          <Sparkles className="w-4 h-4 text-yellow-400" />
+          <span className="text-white font-semibold text-sm">Free Consultation</span>
         </motion.div>
-        <ContactForm />
-      </motion.div>
-    </section>
+        
+        <h2 className="text-4xl md:text-5xl font-bold gradient-text-rainbow mb-3">
+          Start Your Journey
+        </h2>
+        <p className="text-white/80 text-lg">
+          Connect with Vancouver's premier real estate expert
+        </p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Name Field */}
+        <div className="space-y-2">
+          <Label htmlFor="name" className="text-white font-semibold flex items-center gap-2">
+            <User className="w-4 h-4" />
+            Full Name
+          </Label>
+          <Input
+            id="name"
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            placeholder="John Doe"
+            className="glass border-white/20 text-white placeholder:text-white/50 focus:border-purple-500 h-14 rounded-xl text-lg"
+            required
+          />
+        </div>
+
+        {/* Email Field */}
+        <div className="space-y-2">
+          <Label htmlFor="email" className="text-white font-semibold flex items-center gap-2">
+            <Mail className="w-4 h-4" />
+            Email Address
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            value={formData.email}
+            onChange={(e) => handleInputChange('email', e.target.value)}
+            placeholder="john@example.com"
+            className="glass border-white/20 text-white placeholder:text-white/50 focus:border-purple-500 h-14 rounded-xl text-lg"
+            required
+          />
+        </div>
+
+        {/* Phone Field */}
+        <div className="space-y-2">
+          <Label htmlFor="phone" className="text-white font-semibold flex items-center gap-2">
+            <Phone className="w-4 h-4" />
+            Phone Number
+          </Label>
+          <Input
+            id="phone"
+            type="tel"
+            value={formData.phone}
+            onChange={(e) => handleInputChange('phone', e.target.value)}
+            placeholder="+1 (778) 555-0123"
+            className="glass border-white/20 text-white placeholder:text-white/50 focus:border-purple-500 h-14 rounded-xl text-lg"
+            required
+          />
+        </div>
+
+        {/* Interest Field */}
+        <div className="space-y-2">
+          <Label htmlFor="interest" className="text-white font-semibold">
+            I'm interested in
+          </Label>
+          <Select value={formData.interest} onValueChange={(value) => handleInputChange('interest', value)}>
+            <SelectTrigger className="glass border-white/20 text-white h-14 rounded-xl text-lg">
+              <SelectValue placeholder="Select an option" />
+            </SelectTrigger>
+            <SelectContent className="glass-dark border-white/20">
+              <SelectItem value="buying">Buying a Property</SelectItem>
+              <SelectItem value="selling">Selling a Property</SelectItem>
+              <SelectItem value="investing">Real Estate Investment</SelectItem>
+              <SelectItem value="consultation">General Consultation</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Submit Button */}
+        <motion.button
+          type="submit"
+          disabled={isSubmitting}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl font-bold text-lg text-white shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isSubmitting ? (
+            <span className="flex items-center gap-2">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+              />
+              Sending...
+            </span>
+          ) : (
+            <>
+              <Send className="w-5 h-5" />
+              Get Started
+            </>
+          )}
+        </motion.button>
+      </form>
+
+      {/* Trust Elements */}
+      <div className="mt-8 pt-8 border-t border-white/10 flex flex-wrap justify-center gap-4 text-sm">
+        {['🔒 100% Secure', '⚡ Instant Response', '🎯 No Obligation'].map((item, index) => (
+          <span key={index} className="text-white/70 font-medium">
+            {item}
+          </span>
+        ))}
+      </div>
+    </motion.div>
   );
 };
 
