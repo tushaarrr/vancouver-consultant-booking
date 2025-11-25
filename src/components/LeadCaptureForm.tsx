@@ -14,16 +14,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "@formspree/react";
 
-// Premium animation variants
+// Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { 
-      duration: 0.8,
-      ease: "easeOut"
-    } 
+    transition: { duration: 0.8 } 
   },
 };
 
@@ -32,10 +29,7 @@ const zoomIn = {
   visible: { 
     opacity: 1, 
     scale: 1, 
-    transition: { 
-      duration: 0.8,
-      ease: "easeOut"
-    } 
+    transition: { duration: 0.8 } 
   },
 };
 

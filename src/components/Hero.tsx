@@ -14,16 +14,13 @@ const NAV_LINKS = [
   { label: "Book", href: "/#calendly-section" },
 ];
 
-// Animation variants for smooth, premium transitions
+// Animation variants
 const navVariants = {
   hidden: { y: -40, opacity: 0 },
   visible: { 
     y: 0, 
     opacity: 1, 
-    transition: { 
-      duration: 0.8,
-      ease: "easeOut"
-    } 
+    transition: { duration: 0.8 } 
   },
 };
 
@@ -34,8 +31,7 @@ const heroContentVariants = {
     y: 0, 
     transition: { 
       duration: 1.2,
-      delay: 0.3,
-      ease: "easeOut"
+      delay: 0.3
     } 
   },
 };
@@ -54,10 +50,7 @@ const fadeUpVariant = {
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { 
-      duration: 0.8,
-      ease: "easeOut"
-    } 
+    transition: { duration: 0.8 } 
   },
 };
 
