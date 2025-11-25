@@ -1,240 +1,174 @@
-import { CheckCircle, Calendar, MessageSquare, Target, TrendingUp, Home } from "lucide-react";
+import { Calendar, Target, TrendingUp, Zap, Sparkles, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-
-// Premium animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 60, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8
-    },
-  },
-};
-
-const titleVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8
-    },
-  },
-};
-
-const ctaVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      delay: 0.6
-    },
-  },
-};
 
 const WhatToExpect = () => {
   const steps = [
     {
       icon: Calendar,
-      title: "1. Book Your Session",
-      description: "Choose a convenient time slot that works for your schedule. The booking process takes less than 2 minutes and you'll get instant confirmation.",
-      timeline: "Instant confirmation",
-      color: "from-blue-500 to-purple-500"
+      title: "Book Session",
+      description: "Choose your perfect time slot. Instant confirmation in under 2 minutes.",
+      gradient: "from-purple-500 via-pink-500 to-red-500",
+      delay: 0.1
     },
     {
-      icon: MessageSquare,
-      title: "2. Pre-Call Preparation",
-      description: "You'll receive a brief questionnaire to help me understand your real estate goals and prepare personalized market insights.",
-      timeline: "24 hours before",
-      color: "from-purple-500 to-pink-500"
+      icon: Sparkles,
+      title: "Preparation",
+      description: "Receive personalized questionnaire to maximize our consultation value.",
+      gradient: "from-blue-500 via-cyan-500 to-teal-500",
+      delay: 0.2
     },
     {
       icon: Target,
-      title: "3. Strategic Consultation",
-      description: "We'll dive deep into your property needs, market conditions, and financing options. I'll share actionable strategies tailored to your situation.",
-      timeline: "30-60 minutes",
-      color: "from-pink-500 to-red-500"
+      title: "Consultation",
+      description: "Deep dive into your goals with actionable market strategies tailored for you.",
+      gradient: "from-pink-500 via-purple-500 to-indigo-500",
+      delay: 0.3
     },
     {
       icon: TrendingUp,
-      title: "4. Follow-Up & Action Plan",
-      description: "Receive a personalized action plan with next steps, market comparables, and recommended properties or strategies to start implementing immediately.",
-      timeline: "Within 24 hours",
-      color: "from-red-500 to-orange-500"
+      title: "Action Plan",
+      description: "Get your custom roadmap with market data and next steps within 24 hours.",
+      gradient: "from-emerald-500 via-green-500 to-lime-500",
+      delay: 0.4
     }
   ];
 
   return (
-    <section className="py-16 relative overflow-hidden">
-      {/* Background with Real Estate Image */}
-      <div className="absolute inset-0">
-        <img 
-          src="https://images.unsplash.com/photo-1493397212122-2b85dda8106b?q=80&w=2000&auto=format&fit=crop" 
-          alt="Modern Vancouver Architecture" 
-          className="w-full h-full object-cover opacity-5"
-          loading="lazy"
+    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-background via-purple-950/20 to-background">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div 
+          animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className="absolute top-10 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 opacity-95"></div>
+        <motion.div 
+          animate={{ rotate: -360, scale: [1, 1.3, 1] }}
+          transition={{ duration: 25, repeat: Infinity }}
+          className="absolute bottom-10 left-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+        />
       </div>
       
-      {/* Animated Background Elements */}
-      <motion.div 
-        className="absolute top-10 right-10 w-28 h-28 bg-green-200 rounded-full opacity-30"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-10 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-30"
-        animate={{ 
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1]
-        }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-      />
-      
-      <div className="max-w-6xl mx-auto relative z-10 px-4">
+      <div className="max-w-7xl mx-auto relative z-10 px-6">
         {/* Section Title */}
         <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={titleVariants}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-            🎯 What to Expect
+          <motion.div
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", delay: 0.2 }}
+            className="inline-flex items-center gap-2 glass-premium px-6 py-3 rounded-full mb-6"
+          >
+            <Zap className="w-5 h-5 text-yellow-400" />
+            <span className="text-white font-semibold">The Process</span>
+          </motion.div>
+          
+          <h2 className="text-5xl md:text-6xl font-bold gradient-text-rainbow mb-6">
+            What to Expect
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Here's exactly what happens after you book your real estate consultation session with me
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Your journey to real estate success in four simple steps
           </p>
         </motion.div>
         
         {/* Steps Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <motion.div key={index} variants={cardVariants}>
-              <Card className="relative bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: step.delay }}
+            >
+              <Card className="luxury-card glass-premium border-white/10 h-full hover:border-purple-500/50">
                 <CardContent className="p-8 text-center h-full flex flex-col">
+                  {/* Icon */}
                   <motion.div 
-                    className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center shadow-lg`}
-                    whileHover={{ 
-                      scale: 1.1,
-                      rotate: 5
-                    }}
-                    transition={{ duration: 0.3 }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring" }}
+                    className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${step.gradient} rounded-2xl flex items-center justify-center shadow-2xl`}
                   >
                     <step.icon className="w-10 h-10 text-white" />
                   </motion.div>
                   
-                  <h3 className="text-lg font-bold text-foreground mb-4">
+                  {/* Number Badge */}
+                  <div className="mb-4">
+                    <span className={`inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br ${step.gradient} rounded-full text-white font-bold text-lg shadow-lg`}>
+                      {index + 1}
+                    </span>
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-white mb-4">
                     {step.title}
                   </h3>
                   
-                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed flex-grow">
+                  {/* Description */}
+                  <p className="text-white/70 leading-relaxed flex-grow">
                     {step.description}
                   </p>
                   
+                  {/* Checkmark */}
                   <motion.div 
-                    className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-xs font-bold border-2 border-green-200 hover:bg-green-100 transition-colors duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: step.delay + 0.3, type: "spring" }}
+                    className="mt-6"
                   >
-                    <CheckCircle className="w-4 h-4" />
-                    {step.timeline}
+                    <CheckCircle2 className="w-6 h-6 text-green-400 mx-auto" />
                   </motion.div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
         
-        {/* Call to Action Section */}
+        {/* CTA Section */}
         <motion.div
-          className="mt-16 bg-gradient-to-r from-blue-50 via-purple-50 to-green-50 rounded-3xl p-10 text-center shadow-2xl hover:shadow-3xl transition-all duration-500"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={ctaVariants}
-          whileHover={{ scale: 1.02 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-20 text-center glass-premium rounded-3xl p-12"
         >
-          <motion.div 
-            className="flex justify-center mb-6"
-            animate={{ 
-              y: [0, -10, 0],
-              rotate: [0, 5, -5, 0]
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
+          <motion.div
+            animate={{ rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center"
           >
-            <Home className="w-16 h-16 text-blue-500" />
+            <Sparkles className="w-10 h-10 text-white" />
           </motion.div>
           
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            🏡 Ready to Make Your Move?
+          <h3 className="text-4xl font-bold gradient-text-rainbow mb-4">
+            Ready to Get Started?
           </h3>
-          
-          <p className="text-muted-foreground mb-8 max-w-3xl mx-auto text-lg">
-            Join hundreds of satisfied Vancouver families who have found their dream homes and successful investors 
-            who have built wealth through strategic real estate decisions. Your journey starts with one conversation.
+          <p className="text-white/80 mb-8 max-w-2xl mx-auto text-lg">
+            Join hundreds of satisfied Vancouver families who found their dream homes
           </p>
           
-          <motion.div 
-            className="flex flex-wrap justify-center gap-6"
-            variants={containerVariants}
-          >
-            {[
-              { icon: "✅", text: "No obligation consultation" },
-              { icon: "🎯", text: "Personalized market insights" },
-              { icon: "🔒", text: "100% confidential discussion" }
-            ].map((benefit, index) => (
+          <div className="flex flex-wrap justify-center gap-6">
+            {['No Obligation', 'Expert Insights', '100% Confidential'].map((item, index) => (
               <motion.div
                 key={index}
-                className="flex items-center gap-2 text-sm text-green-600 font-bold bg-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                variants={cardVariants}
-                whileHover={{ y: -2 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.7 + index * 0.1 }}
+                className="flex items-center gap-2 glass px-6 py-3 rounded-full text-white font-semibold"
               >
-                <CheckCircle className="w-5 h-5" />
-                <span>{benefit.icon} {benefit.text}</span>
+                <CheckCircle2 className="w-5 h-5 text-green-400" />
+                {item}
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

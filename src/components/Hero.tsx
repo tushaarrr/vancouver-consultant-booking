@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Home, Key, TrendingUp, Menu, X } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
+import { ArrowRight, Sparkles, Star, Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-// Video configuration - Change these paths to update the hero video
-const HERO_VIDEO = "/hero-vancouver.mov"; // Main video file
+const HERO_VIDEO = "/hero-vancouver.mov";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -14,52 +13,10 @@ const NAV_LINKS = [
   { label: "Book", href: "/#calendly-section" },
 ];
 
-// Animation variants
-const navVariants = {
-  hidden: { y: -40, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1, 
-    transition: { duration: 0.8 } 
-  },
-};
-
-const heroContentVariants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 1.2,
-      delay: 0.3
-    } 
-  },
-};
-
-const staggerContainer = {
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.5,
-    },
-  },
-};
-
-const fadeUpVariant = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8 } 
-  },
-};
-
 const Hero = () => {
   const [navBg, setNavBg] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
 
-  // Navbar background on scroll with smooth transition
   useEffect(() => {
     const handleScroll = () => {
       setNavBg(window.scrollY > 40);
@@ -68,195 +25,200 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on nav link click
-  const handleNavClick = () => setMobileOpen(false);
-
-  const scrollToCalendly = () => {
-    const calendlySection = document.querySelector('#calendly-section');
-    calendlySection?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToForm = () => {
-    const formSection = document.querySelector('#lead-form');
-    formSection?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <motion.section
-      id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden px-0"
-      initial="hidden"
-      animate="visible"
-      variants={staggerContainer}
-    >
-      {/* Video Background Only */}
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      {/* Video Background with Dramatic Overlay */}
       <div className="absolute inset-0 w-full h-full z-0">
-        {/* Video Element - Main Background */}
         <video
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay
           loop
           muted
           playsInline
-          onLoadedData={() => setVideoLoaded(true)}
-          onError={(e) => {
-            console.warn('Video failed to load');
-            setVideoLoaded(false);
-          }}
         >
           <source src={HERO_VIDEO} type="video/mp4" />
-          <source src={HERO_VIDEO} type="video/quicktime" />
-          {/* Fallback message for browsers that don't support video */}
-          Your browser does not support the video tag.
         </video>
-
-        {/* Premium Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 z-10" />
         
-        {/* Additional subtle overlay for enhanced text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/30 via-transparent to-navy/30 z-20" />
+        {/* Ultra-Modern Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-blue-900/70 to-black/90 z-10" />
+        
+        {/* Animated Gradient Accents */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-pink-500/20 via-transparent to-cyan-500/20 z-20 animate-gradient-shift" style={{backgroundSize: '400% 400%'}} />
       </div>
 
-      {/* Navigation Bar */}
+      {/* Glass Morphism Navigation */}
       <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
         className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
-          navBg 
-            ? "bg-black/95 backdrop-blur-xl shadow-2xl border-b border-gold/20" 
-            : "bg-transparent"
-        } flex items-center justify-between px-4 sm:px-6 md:px-16 py-3 md:py-4`}
-        variants={navVariants}
+          navBg ? "glass-dark shadow-2xl" : "bg-transparent"
+        } px-6 md:px-16 py-4`}
       >
-        <motion.a 
-          href="/"
-          className="font-serif text-xl sm:text-2xl text-gold font-bold tracking-wide"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.2 }}
-        >
-          Realty.com
-        </motion.a>
-        
-        {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-6 lg:gap-8">
-          {NAV_LINKS.map((link, index) => (
-            <motion.li 
-              key={link.href}
+        <div className="flex items-center justify-between">
+          <motion.a 
+            href="/"
+            className="font-serif text-2xl md:text-3xl gradient-text-rainbow font-bold"
+            whileHover={{ scale: 1.05 }}
+          >
+            Realty<span className="text-white">.com</span>
+          </motion.a>
+          
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex gap-8">
+            {NAV_LINKS.map((link, index) => (
+              <motion.li 
+                key={link.href}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index + 0.3, duration: 0.5 }}
+              >
+                <a
+                  href={link.href}
+                  className="text-white/90 font-semibold hover:text-white transition-all duration-300 relative group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              </motion.li>
+            ))}
+          </ul>
+          
+          {/* Mobile Menu Button */}
+          <button
+            className="flex md:hidden glass-premium p-3 rounded-xl"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
+          </button>
+          
+          {/* Mobile Menu */}
+          {mobileOpen && (
+            <motion.ul
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.5 }}
+              className="absolute left-0 top-full w-full glass-dark py-6 flex flex-col md:hidden"
             >
-              <a
-                href={link.href}
-                className="text-white font-medium hover:text-gold transition-all duration-300 px-3 py-2 rounded-lg hover:bg-white/10 focus:outline-none focus:text-gold relative group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            </motion.li>
-          ))}
-        </ul>
-        
-        {/* Mobile Menu Button */}
-        <motion.button
-          className="flex md:hidden items-center justify-center p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 hover:bg-white/10 transition-all duration-300"
-          onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Open navigation menu"
-          whileTap={{ scale: 0.95 }}
-        >
-          {mobileOpen ? <X className="w-7 h-7 text-gold" /> : <Menu className="w-7 h-7 text-gold" />}
-        </motion.button>
-        
-        {/* Mobile Menu */}
-        <motion.ul
-          initial={{ height: 0, opacity: 0 }}
-          animate={mobileOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className={`absolute left-0 top-full w-full bg-black/95 backdrop-blur-xl shadow-2xl flex flex-col md:hidden overflow-hidden rounded-b-2xl border-b border-gold/20 ${mobileOpen ? "py-4" : "py-0"}`}
-        >
-          {NAV_LINKS.map((link, index) => (
-            <motion.li 
-              key={link.href} 
-              className="w-full"
-              initial={{ x: -50, opacity: 0 }}
-              animate={mobileOpen ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.3 }}
-            >
-              <a
-                href={link.href}
-                className="block w-full text-lg text-white font-medium px-6 py-4 border-b border-gold/10 hover:bg-gold/10 focus:bg-gold/10 transition-all duration-300"
-                onClick={handleNavClick}
-              >
-                {link.label}
-              </a>
-            </motion.li>
-          ))}
-        </motion.ul>
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="block text-white font-semibold px-8 py-4 hover:bg-white/10"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </motion.ul>
+          )}
+        </div>
       </motion.nav>
 
-      {/* Hero Content */}
-      <div className="relative z-30 text-center max-w-4xl mx-auto px-4 py-28 sm:py-32 flex flex-col items-center">
+      {/* Hero Content - Ultra-Modern */}
+      <div className="relative z-30 text-center max-w-6xl mx-auto px-6 py-32 flex flex-col items-center">
         <motion.div
-          variants={heroContentVariants}
-          className="space-y-6"
+          initial={{ opacity: 0, y: 60, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="space-y-8"
         >
-          {/* Main Headline */}
-          <motion.h1 
-            className="font-serif text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 drop-shadow-2xl leading-tight" 
-            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            variants={fadeUpVariant}
+          {/* Accent Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="inline-flex items-center gap-2 glass-premium px-6 py-3 rounded-full"
           >
-            Greater Vancouver's Premier Real Estate Consultant
+            <Sparkles className="w-5 h-5 text-yellow-400" />
+            <span className="text-white font-semibold">Vancouver's Premier Real Estate</span>
+          </motion.div>
+          
+          {/* Main Headline - Dramatic Typography */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+          >
+            <span className="text-white drop-shadow-2xl">Luxury Living</span>
+            <br />
+            <span className="gradient-text-rainbow">Reimagined</span>
           </motion.h1>
           
           {/* Subheadline */}
           <motion.p 
-            className="text-base sm:text-lg md:text-2xl lg:text-3xl font-semibold mb-6 sm:mb-8 drop-shadow-lg" 
-            style={{ color: '#F4C430' }}
-            variants={fadeUpVariant}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.1 }}
+            className="text-xl md:text-2xl lg:text-3xl font-medium text-white/90 max-w-3xl mx-auto drop-shadow-lg"
           >
-            Guiding High-End Buyers & Sellers to Success
+            Elevate your real estate journey with cutting-edge market insights and exclusive property access
           </motion.p>
           
-          {/* Premium CTA Button */}
+          {/* CTA Buttons */}
           <motion.div
-            variants={fadeUpVariant}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.3 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8"
           >
             <a
               href="#lead-form"
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-900 to-emerald-600 hover:from-blue-800 hover:to-emerald-500 text-white font-bold px-10 sm:px-14 py-4 sm:py-5 rounded-xl shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 text-base sm:text-lg lg:text-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-400/50 group"
+              className="group relative px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl font-bold text-lg text-white shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 flex items-center gap-3 overflow-hidden"
             >
-              Book Free Consultation
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              <span className="relative z-10">Book Consultation</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </a>
+            
+            <a
+              href="#what-to-expect"
+              className="px-10 py-5 glass-premium rounded-2xl font-bold text-lg text-white hover:bg-white/20 transition-all duration-300 hover:scale-105"
+            >
+              Learn More
             </a>
           </motion.div>
           
-          {/* Trust Badges */}
+          {/* Trust Badges - Modern Pills */}
           <motion.div 
-            className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-8 sm:mt-12"
-            variants={staggerContainer}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="flex flex-wrap justify-center gap-4 mt-12"
           >
             {[
-              { icon: "🌟", text: "500+ Families Helped" },
-              { icon: "🏆", text: "Top Rated Realtor" },
-              { icon: "⭐", text: "Google 5.0 Rating" }
+              { icon: <Star className="w-4 h-4" />, text: "500+ Families" },
+              { icon: <Star className="w-4 h-4" />, text: "5.0 Rating" },
+              { icon: <Star className="w-4 h-4" />, text: "Top Realtor" }
             ].map((badge, index) => (
-              <motion.span
+              <motion.div
                 key={index}
-                className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-xl font-semibold text-xs sm:text-sm text-navy border border-white/20 hover:bg-white transition-all duration-300"
-                variants={fadeUpVariant}
-                whileHover={{ scale: 1.05, y: -2 }}
-                transition={{ duration: 0.2 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.6 + index * 0.1 }}
+                className="flex items-center gap-2 glass px-6 py-3 rounded-full text-white font-semibold hover:bg-white/20 transition-all"
               >
-                <span className="text-lg">{badge.icon}</span>
+                {badge.icon}
                 {badge.text}
-              </motion.span>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
       </div>
-    </motion.section>
+
+      {/* Floating Elements */}
+      <motion.div
+        animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 4, repeat: Infinity }}
+        className="absolute top-1/4 right-10 w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-30 z-20"
+      />
+      <motion.div
+        animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
+        transition={{ duration: 5, repeat: Infinity }}
+        className="absolute bottom-1/4 left-10 w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full blur-3xl opacity-30 z-20"
+      />
+    </section>
   );
 };
 
