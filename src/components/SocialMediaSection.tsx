@@ -20,8 +20,7 @@ const titleVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.8
     },
   },
 };
@@ -33,8 +32,7 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.8
     },
   },
 };
@@ -46,8 +44,7 @@ const ctaVariants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      delay: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      delay: 0.6
     },
   },
 };
