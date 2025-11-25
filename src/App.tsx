@@ -11,6 +11,11 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Verify environment variables are loaded
+if (!import.meta.env.VITE_SUPABASE_URL) {
+  console.error('Environment variables not loaded. Please restart the preview.');
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
