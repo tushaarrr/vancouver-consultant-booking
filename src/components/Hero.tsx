@@ -22,7 +22,7 @@ const navVariants = {
     opacity: 1, 
     transition: { 
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for premium feel
+      ease: "easeOut"
     } 
   },
 };
@@ -35,7 +35,7 @@ const heroContentVariants = {
     transition: { 
       duration: 1.2,
       delay: 0.3,
-      ease: [0.25, 0.46, 0.45, 0.94]
+      ease: "easeOut"
     } 
   },
 };
@@ -56,7 +56,7 @@ const fadeUpVariant = {
     y: 0, 
     transition: { 
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94]
+      ease: "easeOut"
     } 
   },
 };
