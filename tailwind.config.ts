@@ -62,9 +62,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				navy: "#0F1E3E",
-				gold: "#D4AF37",
-				lightbg: "#F7F9FC",
+				/* Minimalistic brand colors */
+				navy: "hsl(220, 25%, 20%)",
+				gold: "hsl(45, 60%, 60%)",
+				lightbg: "hsl(220, 15%, 98%)",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
