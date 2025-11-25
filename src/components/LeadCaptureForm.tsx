@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/select";
 import { Phone, Mail, User, Home, CheckCircle } from "lucide-react";
 import { motion } from 'framer-motion';
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "@formspree/react";
 
@@ -78,6 +77,9 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
+      // Lazy load supabase client only when needed
+      const { supabase } = await import("@/integrations/supabase/client");
+      
       // Save to Supabase first
       const { error: supabaseError } = await supabase
         .from('leads')
@@ -91,7 +93,7 @@ const ContactForm = () => {
         ]);
 
       if (supabaseError) {
-        console.error('Error saving to Supabase:', supabaseError);
+        console.error('Error saving to database:', supabaseError);
         toast({
           title: "Database Error",
           description: "There was an error saving your information. Please try again.",
