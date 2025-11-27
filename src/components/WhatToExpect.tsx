@@ -5,22 +5,26 @@ const features = [
   {
     icon: Building2,
     title: "PRIME LOCATIONS",
-    description: "Exclusive properties in Vancouver's most prestigious neighborhoods"
+    description: "Exclusive properties in Vancouver's most prestigious neighborhoods",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop"
   },
   {
     icon: Key,
     title: "PERSONALIZED SERVICE",
-    description: "Tailored approach to finding your perfect luxury residence"
+    description: "Tailored approach to finding your perfect luxury residence",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop"
   },
   {
     icon: Home,
     title: "CURATED PORTFOLIO",
-    description: "Hand-selected properties representing the pinnacle of luxury living"
+    description: "Hand-selected properties representing the pinnacle of luxury living",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop"
   },
   {
     icon: TrendingUp,
     title: "INVESTMENT EXCELLENCE",
-    description: "Strategic guidance for optimal real estate investment returns"
+    description: "Strategic guidance for optimal real estate investment returns",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop"
   }
 ];
 
@@ -67,7 +71,7 @@ const WhatToExpect = () => {
             </p>
           </div>
 
-          {/* Features Grid */}
+          {/* Features Grid with Images */}
           <div className="grid md:grid-cols-2 gap-16">
             {features.map((feature, index) => (
               <div
@@ -77,6 +81,17 @@ const WhatToExpect = () => {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
+                {/* Image */}
+                <div className="relative mb-6 overflow-hidden h-64">
+                  <img 
+                    src={feature.image} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/0 transition-all duration-500" />
+                </div>
+                
+                {/* Content */}
                 <div className="space-y-6">
                   <feature.icon className="h-12 w-12 text-foreground group-hover:scale-110 transition-transform duration-300" />
                   <h3 className="text-2xl font-serif font-light tracking-widest">
