@@ -62,16 +62,11 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				/* Ultra-Modern Luxury Colors */
-				gold: 'hsl(var(--gold))',
-				pink: 'hsl(var(--pink))',
-				navy: "hsl(220, 25%, 20%)",
-				lightbg: "hsl(220, 15%, 98%)",
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				lg: '0',
+				md: '0',
+				sm: '0'
 			},
 			keyframes: {
 				'accordion-down': {
@@ -90,52 +85,34 @@ export default {
 						height: '0'
 					}
 				},
-				'luxury-fade': {
+				'fade-in-up': {
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(40px) scale(0.95)'
+						transform: 'translateY(30px)'
 					},
 					'100%': {
 						opacity: '1',
-						transform: 'translateY(0) scale(1)'
+						transform: 'translateY(0)'
 					}
 				},
-				'gradient-shift': {
-					'0%, 100%': {
-						'background-position': '0% 50%'
+				'draw-line': {
+					'0%': {
+						width: '0'
 					},
-					'50%': {
-						'background-position': '100% 50%'
-					}
-				},
-				'float': {
-					'0%, 100%': {
-						transform: 'translateY(0px)'
-					},
-					'50%': {
-						transform: 'translateY(-20px)'
-					}
-				},
-				'glow-pulse': {
-					'0%, 100%': {
-						'box-shadow': '0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2)'
-					},
-					'50%': {
-						'box-shadow': '0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(168, 85, 247, 0.3)'
+					'100%': {
+						width: '100%'
 					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'luxury-fade': 'luxury-fade 1s ease-out',
-				'gradient-shift': 'gradient-shift 8s ease infinite',
-				'float': 'float 3s ease-in-out infinite',
-				'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+				'fade-in-up': 'fade-in-up 0.8s ease-out',
+				'draw-line': 'draw-line 1s ease-out',
 			},
 			fontFamily: {
-				serif: ['Playfair Display', 'Georgia', 'serif'],
-				sans: ['Montserrat', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+				serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+				sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
 			},
 		}
 	},
