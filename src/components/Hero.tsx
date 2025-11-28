@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -16,13 +17,18 @@ const Hero = () => {
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
       {/* Fixed Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm transition-colors duration-300">
         <div className="container mx-auto px-6 py-6 flex items-center justify-between">
-          <h1 className="text-2xl font-serif tracking-wider">VANCOUVER LUXURY</h1>
-          <div className="hidden md:flex items-center gap-12 text-sm tracking-widest">
-            <a href="/about" className="hover:opacity-60 transition-opacity">ABOUT</a>
-            <a href="/testimonials" className="hover:opacity-60 transition-opacity">TESTIMONIALS</a>
-            <a href="/contact" className="hover:opacity-60 transition-opacity">CONTACT</a>
+          <h1 className="text-2xl font-serif tracking-wider group cursor-pointer">
+            <span className="group-hover:text-gold transition-colors duration-300">VANCOUVER LUXURY</span>
+          </h1>
+          <div className="flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-12 text-sm tracking-widest">
+              <a href="/about" className="hover:text-gold transition-colors duration-300">ABOUT</a>
+              <a href="/testimonials" className="hover:text-gold transition-colors duration-300">TESTIMONIALS</a>
+              <a href="/contact" className="hover:text-gold transition-colors duration-300">CONTACT</a>
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </nav>
@@ -58,16 +64,19 @@ const Hero = () => {
         <ChevronDown className="h-8 w-8 text-foreground/40" />
       </div>
 
-      {/* Large Luxury Property Image with Parallax */}
-      <div 
-        className="absolute inset-0 -z-10 opacity-20"
-        style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-      >
-        <img 
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop" 
-          alt="Luxury Vancouver Property" 
-          className="w-full h-full object-cover"
-        />
+      {/* Hero Video Background */}
+      <div className="absolute inset-0 -z-10">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-30 grayscale"
+          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+        >
+          <source src="/hero-vancouver.mov" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/80" />
       </div>
 
       {/* Architectural Grid Overlay */}
