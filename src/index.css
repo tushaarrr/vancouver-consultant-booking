@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Elegant Minimalist Black & White Palette */
+    /* Base Colors - Luxury Design with Accents */
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
 
@@ -16,79 +16,96 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    /* Pure Black Primary */
     --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
 
-    /* Subtle Gray Secondary */
-    --secondary: 0 0% 20%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 0%;
 
-    /* Light Gray Backgrounds */
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    /* Accent Gray */
-    --accent: 0 0% 95%;
+    --accent: 0 0% 90%;
     --accent-foreground: 0 0% 0%;
 
-    --destructive: 0 72% 51%;
+    /* Luxury Color Accents */
+    --gold: 43 74% 66%;
+    --gold-foreground: 0 0% 0%;
+    
+    --navy: 222 47% 11%;
+    --navy-foreground: 0 0% 100%;
+    
+    --champagne: 40 23% 85%;
+    --champagne-foreground: 0 0% 0%;
+
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 0% 0%;
+    --ring: 43 74% 66%;
 
     --radius: 0rem;
 
-    /* Sidebar tokens */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 0 0% 0%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 0 0% 0%;
+    /* Sidebar specific colors */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 5%;
 
-    --secondary: 0 0% 80%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 10%;
+    --muted: 0 0% 12%;
     --muted-foreground: 0 0% 60%;
 
     --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 72% 51%;
+    /* Luxury Color Accents - Dark Mode */
+    --gold: 43 74% 66%;
+    --gold-foreground: 0 0% 5%;
+    
+    --navy: 222 47% 20%;
+    --navy-foreground: 0 0% 98%;
+    
+    --champagne: 40 23% 75%;
+    --champagne-foreground: 0 0% 5%;
+
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 0 0% 100%;
+    --ring: 43 74% 66%;
 
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 0 0% 100%;
+    /* Sidebar specific colors */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
