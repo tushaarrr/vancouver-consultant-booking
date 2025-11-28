@@ -42,7 +42,7 @@ const VideoTestimonials = () => {
                 <img
                   src={testimonial.thumbnail}
                   alt={testimonial.name}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover group-hover:brightness-110 group-hover:scale-105 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-background/40 group-hover:bg-background/20 transition-all duration-500 flex items-center justify-center">
                   <div className="w-16 h-16 border-2 border-foreground group-hover:border-gold group-hover:bg-gold/20 flex items-center justify-center transition-all duration-300">

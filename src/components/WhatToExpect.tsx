@@ -86,7 +86,7 @@ const WhatToExpect = () => {
                   <img 
                     src={feature.image} 
                     alt={feature.title}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover group-hover:brightness-110 group-hover:scale-105 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/0 transition-all duration-500" />
                 </div>

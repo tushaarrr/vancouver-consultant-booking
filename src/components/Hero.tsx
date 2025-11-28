@@ -71,7 +71,7 @@ const Hero = () => {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-30 grayscale"
+          className="w-full h-full object-cover opacity-40"
           style={{ transform: `translateY(${scrollY * 0.3}px)` }}
         >
           <source src="/hero-vancouver.mov" type="video/mp4" />

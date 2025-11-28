@@ -31,7 +31,7 @@ const MosaicGallery = () => {
               <img
                 src={image.url}
                 alt={`Property ${index + 1}`}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                className="w-full h-full object-cover group-hover:brightness-110 group-hover:scale-110 transition-all duration-700"
               />
             </div>
           ))}

@@ -64,12 +64,12 @@ const LuxuryLifestyle = () => {
           <img
             src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=400&fit=crop"
             alt="Vancouver Lifestyle"
-            className="w-full h-80 object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            className="w-full h-80 object-cover hover:brightness-110 hover:scale-105 transition-all duration-700"
           />
           <img
             src="https://images.unsplash.com/photo-1519750783826-e2420f4d687f?w=600&h=400&fit=crop"
             alt="Vancouver Nature"
-            className="w-full h-80 object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            className="w-full h-80 object-cover hover:brightness-110 hover:scale-105 transition-all duration-700"
           />
         </div>
       </div>

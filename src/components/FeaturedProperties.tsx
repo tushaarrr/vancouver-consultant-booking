@@ -63,10 +63,7 @@ const FeaturedProperties = () => {
                 <img
                   src={property.image}
                   alt={property.location}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                  style={{
-                    filter: hoveredId === property.id ? "grayscale(0%)" : "grayscale(100%)",
-                  }}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                 />
               </div>
               
